@@ -1,6 +1,6 @@
 {
   "name": "outers",
-  "version": "8.6.7",
+  "version": "8.6.9",
   "description": "outers - a all in one package for your day to day use",
   "main": "./lib/Config/outer.js",
   "types": "./lib/Config/outer.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/AnkanSaha/outers.git"
+    "url": "git://github.com/Nexoral/outers.git"
   },
   "keywords": [
     "outer",
