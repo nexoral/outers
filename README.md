@@ -1,7 +1,7 @@
 ## outers - a all in one package for your day to day use
 
 [![npm version](https://badge.fury.io/js/outers.svg)](https://badge.fury.io/js/outers)
-[![CodeQL](https://github.com/AnkanSaha/outers/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/AnkanSaha/outers/actions/workflows/github-code-scanning/codeql)
+[![CodeQL](https://github.com/Nexoral/outers/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Nexoral/outers/actions/workflows/github-code-scanning/codeql)
 
 This package provides services like Response Sender, Colorful Console, HTTP Status Codes, API Call, Random Number Generate, Create Cluster in NodeJS Easily also you can Store Temporary Data in Server Side like localStorage in Client Side
 

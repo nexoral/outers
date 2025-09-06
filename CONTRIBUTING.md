@@ -17,5 +17,5 @@ Click the "Fork" button in the upper right corner of the repository to create yo
 Clone your forked repository to your local machine:
 
 ```bash
-git clone https://github.com/AnkanSaha/outers.git
+git clone https://github.com/Nexoral/outers.git
 ```
