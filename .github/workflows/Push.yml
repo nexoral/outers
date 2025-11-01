@@ -8,41 +8,57 @@ on:
 jobs:
   publish-to-npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for OIDC/Trusted Publishing
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Node.js
-        run: |
-          curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-          sudo apt-get install -y nodejs sed
-      - name: Install Dependencies
-        run: npm install
-      - name: Build Package
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Ensure npm 11.5.1 or later
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
         run: npm run build
-      - name: Test Package
-        run: npm run test
-      - name: Set NPM Auth Token
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+
       - name: Publish to NPM Registry
-        run: npm publish --registry https://registry.npmjs.org --access public
+        run: npm publish --access public
 
   publish-to-github:
     needs: publish-to-npm
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Install Node.js & sed
         run: |
           curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
           sudo apt-get install -y nodejs sed
+
       - name: Install Dependencies
         run: npm install
+
       - name: Build Package
         run: npm run build
+
       - name: Test Package
         run: npm run test
+
       - name: Set GitHub Auth Token
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GIT_AUTH_TOKEN }}" >> ~/.npmrc
+
       - name: Change the Package name in package.json
         run: sed -i "2s/\"outers\"/\"@${{ secrets.GIT_USER_NAME }}\/outers\"/" package.json
+
       - name: Publish to GitHub Package Registry
         run: npm publish --registry=https://npm.pkg.github.com --scope=@${{ secrets.GIT_USER_NAME }} --access public
